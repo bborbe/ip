@@ -42,7 +42,7 @@ func getIp(request *http.Request) (string, error) {
 		return remoteAddr, nil
 	}
 	parts := strings.Split(request.RemoteAddr, ":")
-	if len(parts) > 0 {
+	if len(parts) > 0 && len(parts[0]) > 0 {
 		return parts[0], nil
 	}
 	return "", fmt.Errorf("remote ip not found")
