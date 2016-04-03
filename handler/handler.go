@@ -1,9 +1,10 @@
 package handler
 
 import (
-	"net/http"
-	"github.com/bborbe/log"
 	"fmt"
+	"net/http"
+
+	"github.com/bborbe/log"
 )
 
 var logger = log.DefaultLogger

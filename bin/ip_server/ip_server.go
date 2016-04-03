@@ -3,16 +3,16 @@ package main
 import (
 	"flag"
 
-	"github.com/bborbe/log"
 	ip_server "github.com/bborbe/ip/server"
+	"github.com/bborbe/log"
 )
 
 var logger = log.DefaultLogger
 
 const (
-	DEFAULT_PORT int = 8080
-	PARAMETER_LOGLEVEL = "loglevel"
-	PARAMETER_PORT = "port"
+	DEFAULT_PORT       int = 8080
+	PARAMETER_LOGLEVEL     = "loglevel"
+	PARAMETER_PORT         = "port"
 )
 
 func main() {
