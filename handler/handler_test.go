@@ -18,7 +18,19 @@ func TestImplementsHandler(t *testing.T) {
 
 func TestGetIpHeaderRemoteAddr(t *testing.T) {
 	h := http.Request{Header: http.Header{}}
-	h.Header.Add("REMOTE_ADDR", "192.168.1.1")
+	h.Header.Add("X-Remote-Addr", "192.168.1.1")
+	ip, err := getIp(&h)
+	if err = AssertThat(err, NilValue()); err != nil {
+		t.Fatal(err)
+	}
+	if err = AssertThat(ip, Is("192.168.1.1")); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestGetIpHeaderRemoteAddrUpper(t *testing.T) {
+	h := http.Request{Header: http.Header{}}
+	h.Header.Add("X_REMOTE_ADDR", "192.168.1.1")
 	ip, err := getIp(&h)
 	if err = AssertThat(err, NilValue()); err != nil {
 		t.Fatal(err)
@@ -30,7 +42,19 @@ func TestGetIpHeaderRemoteAddr(t *testing.T) {
 
 func TestGetIpHeaderForwardedAddr(t *testing.T) {
 	h := http.Request{Header: http.Header{}}
-	h.Header.Add("HTTP_X_FORWARDED_FOR", "192.168.1.1")
+	h.Header.Add("X-Forwarded-For", "192.168.1.1")
+	ip, err := getIp(&h)
+	if err = AssertThat(err, NilValue()); err != nil {
+		t.Fatal(err)
+	}
+	if err := AssertThat(ip, Is("192.168.1.1")); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestGetIpHeaderForwardedAddrUpper(t *testing.T) {
+	h := http.Request{Header: http.Header{}}
+	h.Header.Add("X_FORWARDED_FOR", "192.168.1.1")
 	ip, err := getIp(&h)
 	if err = AssertThat(err, NilValue()); err != nil {
 		t.Fatal(err)

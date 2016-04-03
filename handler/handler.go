@@ -33,13 +33,13 @@ func (s *statusHandler) ServeHTTP(responseWriter http.ResponseWriter, request *h
 
 func getIp(request *http.Request) (string, error) {
 	logger.Tracef("header %v", request.Header)
-	forwardedAddr := request.Header.Get("HTTP_X_FORWARDED_FOR")
-	logger.Tracef("header HTTP_X_FORWARDED_FOR %s", forwardedAddr)
+	forwardedAddr := getHeader(request, "X-Forwarded-For")
+	logger.Tracef("header X-Forwarded-For %s", forwardedAddr)
 	if len(forwardedAddr) != 0 {
 		return forwardedAddr, nil
 	}
-	remoteAddr := request.Header.Get("REMOTE_ADDR")
-	logger.Tracef("header REMOTE_ADDR %s", remoteAddr)
+	remoteAddr := getHeader(request, "X-Remote-Addr")
+	logger.Tracef("header X-Remote-Addr %s", remoteAddr)
 	if len(remoteAddr) != 0 {
 		return remoteAddr, nil
 	}
@@ -49,4 +49,16 @@ func getIp(request *http.Request) (string, error) {
 		return parts[0], nil
 	}
 	return "", fmt.Errorf("remote ip not found")
+}
+
+func getHeader(request *http.Request, name string) string {
+	result := request.Header.Get(name)
+	if len(result) > 0 {
+		return result
+	}
+	return request.Header.Get(parameterNameToEnvName(name))
+}
+
+func parameterNameToEnvName(name string) string {
+	return strings.Replace(strings.ToUpper(name), "-", "_", -1)
 }
