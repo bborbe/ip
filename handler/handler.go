@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/bborbe/log"
 	"strings"
+
+	"github.com/bborbe/log"
 )
 
 var logger = log.DefaultLogger
