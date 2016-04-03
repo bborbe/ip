@@ -34,14 +34,17 @@ func (s *statusHandler) ServeHTTP(responseWriter http.ResponseWriter, request *h
 func getIp(request *http.Request) (string, error) {
 	logger.Tracef("header %v", request.Header)
 	forwardedAddr := request.Header.Get("HTTP_X_FORWARDED_FOR")
+	logger.Tracef("header HTTP_X_FORWARDED_FOR %s", forwardedAddr)
 	if len(forwardedAddr) != 0 {
 		return forwardedAddr, nil
 	}
 	remoteAddr := request.Header.Get("REMOTE_ADDR")
+	logger.Tracef("header REMOTE_ADDR %s", remoteAddr)
 	if len(remoteAddr) != 0 {
 		return remoteAddr, nil
 	}
 	parts := strings.Split(request.RemoteAddr, ":")
+	logger.Tracef("remoteAddr %s", request.RemoteAddr)
 	if len(parts) > 0 && len(parts[0]) > 0 {
 		return parts[0], nil
 	}
