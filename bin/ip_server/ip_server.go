@@ -2,25 +2,43 @@ package main
 
 import (
 	flag "github.com/bborbe/flagenv"
-	ip_server "github.com/bborbe/ip/server"
 	"github.com/bborbe/log"
+	"github.com/facebookgo/grace/gracehttp"
+	"os"
+	"fmt"
+	"github.com/bborbe/ip/handler"
+	"net/http"
 )
 
-var logger = log.DefaultLogger
-
 const (
-	DEFAULT_PORT       int = 8080
-	PARAMETER_LOGLEVEL     = "loglevel"
-	PARAMETER_PORT         = "port"
+	PARAMETER_LOGLEVEL = "loglevel"
+	PARAMETER_PORT = "port"
+	DEFAULT_PORT int = 8080
+)
+
+var (
+	logger = log.DefaultLogger
+	portPtr = flag.Int(PARAMETER_PORT, DEFAULT_PORT, "Port")
+	logLevelPtr = flag.String(PARAMETER_LOGLEVEL, log.INFO_STRING, log.FLAG_USAGE)
 )
 
 func main() {
-	logLevelPtr := flag.String(PARAMETER_LOGLEVEL, log.INFO_STRING, "one of OFF,TRACE,DEBUG,INFO,WARN,ERROR")
-	portPtr := flag.Int(PARAMETER_PORT, DEFAULT_PORT, "port")
+	defer logger.Close()
 	flag.Parse()
+
 	logger.SetLevelThreshold(log.LogStringToLevel(*logLevelPtr))
-	logger.Tracef("set log level to %s", *logLevelPtr)
-	logger.Infof("listen on port %d", *portPtr)
-	srv := ip_server.NewServer(*portPtr)
-	srv.Run()
+	logger.Debugf("set log level to %s", *logLevelPtr)
+
+	server, err := createServer(*portPtr)
+	if err != nil {
+		logger.Fatal(err)
+		logger.Close()
+		os.Exit(1)
+	}
+	logger.Debugf("start server")
+	gracehttp.Serve(server)
+}
+
+func createServer(port int) (*http.Server, error) {
+	return &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: handler.New()}
 }
