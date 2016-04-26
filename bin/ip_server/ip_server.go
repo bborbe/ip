@@ -40,5 +40,5 @@ func main() {
 }
 
 func createServer(port int) (*http.Server, error) {
-	return &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: handler.New()}
+	return &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: handler.New()}, nil
 }
