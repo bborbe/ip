@@ -23,12 +23,12 @@ func (s *statusHandler) ServeHTTP(responseWriter http.ResponseWriter, request *h
 	logger.Debugf("get ip")
 	ip, err := getIp(request)
 	if err != nil {
-		responseWriter.WriteHeader(500)
+		responseWriter.WriteHeader(http.StatusInternalServerError)
 		fmt.Fprint(responseWriter, "Internal Server Error: %v", err)
 		return
 	}
 	responseWriter.Header().Add("Content-Type", "text/plain")
-	responseWriter.WriteHeader(200)
+	responseWriter.WriteHeader(http.StatusOK)
 	fmt.Fprint(responseWriter, ip)
 }
 
