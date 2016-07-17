@@ -20,9 +20,11 @@ func New() http.Handler {
 }
 
 func (s *statusHandler) ServeHTTP(responseWriter http.ResponseWriter, request *http.Request) {
-	logger.Debugf("get ip")
-	ip, err := getIp(request)
-	if err != nil {
+	var ip string
+	var err error
+	logger.Tracef("get ip")
+	if ip, err = getIp(request); err != nil {
+		logger.Warnf("get ip failed: %v", err)
 		responseWriter.WriteHeader(http.StatusInternalServerError)
 		fmt.Fprint(responseWriter, "Internal Server Error: %v", err)
 		return
@@ -30,34 +32,52 @@ func (s *statusHandler) ServeHTTP(responseWriter http.ResponseWriter, request *h
 	responseWriter.Header().Add("Content-Type", "text/plain")
 	responseWriter.WriteHeader(http.StatusOK)
 	fmt.Fprint(responseWriter, ip)
+	logger.Debugf("get ip: %s", ip)
 }
 
 func getIp(request *http.Request) (string, error) {
 	logger.Tracef("header %v", request.Header)
-	forwardedAddr := getHeader(request, "X-Forwarded-For")
-	logger.Tracef("header X-Forwarded-For %s", forwardedAddr)
-	if len(forwardedAddr) != 0 {
-		return forwardedAddr, nil
+	address := getAddress(request)
+	if len(address) == 0 {
+		return "", fmt.Errorf("remote ip not found")
 	}
-	remoteAddr := getHeader(request, "X-Remote-Addr")
-	logger.Tracef("header X-Remote-Addr %s", remoteAddr)
-	if len(remoteAddr) != 0 {
-		return remoteAddr, nil
+	parts := strings.Split(address, ", ")
+	if len(parts) == 0 || len(parts[0]) == 0 {
+		return "", fmt.Errorf("remote ip not found")
 	}
-	parts := strings.Split(request.RemoteAddr, ":")
-	logger.Tracef("remoteAddr %s", request.RemoteAddr)
-	if len(parts) > 0 && len(parts[0]) > 0 {
-		return parts[0], nil
+	parts = strings.Split(parts[0], ":")
+	if len(parts) == 0 || len(parts[0]) == 0 {
+		return "", fmt.Errorf("remote ip not found")
 	}
-	return "", fmt.Errorf("remote ip not found")
+	return parts[0], nil
+}
+
+func getAddress(request *http.Request, names ...string) string {
+	address := getHeaders(request, "X-Forwarded-For", "X-Remote-Addr")
+	if len(address) > 0 {
+		return address
+	}
+	return request.RemoteAddr
+}
+
+func getHeaders(request *http.Request, names ...string) string {
+	var result string
+	for _, name := range names {
+		if result = getHeader(request, name); len(result) > 0 {
+			return result
+		}
+		if result = getHeader(request, parameterNameToEnvName(name)); len(result) > 0 {
+			return result
+		}
+	}
+	return ""
 }
 
 func getHeader(request *http.Request, name string) string {
-	result := request.Header.Get(name)
-	if len(result) > 0 {
-		return result
-	}
-	return request.Header.Get(parameterNameToEnvName(name))
+	var result string
+	result = request.Header.Get(name)
+	logger.Tracef("get header %s => %s", name, result)
+	return result
 }
 
 func parameterNameToEnvName(name string) string {

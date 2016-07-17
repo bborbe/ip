@@ -83,3 +83,15 @@ func TestGetIpFail(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestGetIpHeaderForwardedAddrMulti(t *testing.T) {
+	h := http.Request{Header: http.Header{}}
+	h.Header.Add("X-Forwarded-For", "80.128.80.111, 10.102.95.1")
+	ip, err := getIp(&h)
+	if err = AssertThat(err, NilValue()); err != nil {
+		t.Fatal(err)
+	}
+	if err := AssertThat(ip, Is("80.128.80.111")); err != nil {
+		t.Fatal(err)
+	}
+}
