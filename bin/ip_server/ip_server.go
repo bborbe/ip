@@ -5,11 +5,12 @@ import (
 	"net/http"
 	"os"
 
+	"runtime"
+
 	flag "github.com/bborbe/flagenv"
 	"github.com/bborbe/ip/handler"
 	"github.com/bborbe/log"
 	"github.com/facebookgo/grace/gracehttp"
-	"runtime"
 )
 
 const (
