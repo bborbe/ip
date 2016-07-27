@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	debug_handler "github.com/bborbe/http_handler/debug"
 	"net/http"
 	"os"
 
@@ -17,12 +18,14 @@ const (
 	PARAMETER_LOGLEVEL     = "loglevel"
 	PARAMETER_PORT         = "port"
 	DEFAULT_PORT       int = 8080
+	PARAMETER_DEBUG        = "debug"
 )
 
 var (
 	logger      = log.DefaultLogger
 	portPtr     = flag.Int(PARAMETER_PORT, DEFAULT_PORT, "Port")
 	logLevelPtr = flag.String(PARAMETER_LOGLEVEL, log.INFO_STRING, log.FLAG_USAGE)
+	debugPtr    = flag.Bool(PARAMETER_DEBUG, false, "debug")
 )
 
 func main() {
@@ -34,7 +37,10 @@ func main() {
 
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	server, err := createServer(*portPtr)
+	server, err := createServer(
+		*portPtr,
+		*debugPtr,
+	)
 	if err != nil {
 		logger.Fatal(err)
 		logger.Close()
@@ -44,6 +50,15 @@ func main() {
 	gracehttp.Serve(server)
 }
 
-func createServer(port int) (*http.Server, error) {
-	return &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: handler.New()}, nil
+func createServer(
+	port int,
+	debug bool,
+) (*http.Server, error) {
+	handler := handler.New()
+
+	if debug {
+		handler = debug_handler.New(handler)
+	}
+
+	return &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: handler}, nil
 }
