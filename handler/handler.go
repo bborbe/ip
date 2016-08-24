@@ -31,13 +31,18 @@ func (s *statusHandler) ServeHTTP(responseWriter http.ResponseWriter, request *h
 	}
 	responseWriter.Header().Add("Content-Type", "text/plain")
 	responseWriter.WriteHeader(http.StatusOK)
+	logger.Debugf("return ip %s to client", ip)
 	fmt.Fprint(responseWriter, ip)
-	logger.Debugf("get ip: %s", ip)
 }
 
 func getIp(request *http.Request) (string, error) {
 	logger.Tracef("header %v", request.Header)
-	address := getAddress(request)
+	address := getAddress(request, "X-Forwarded-For", "X-Remote-Addr")
+	return parseIpFromAddress(address)
+}
+
+func parseIpFromAddress(address string) (string, error) {
+	logger.Tracef("parse ip from address %s", address)
 	if len(address) == 0 {
 		return "", fmt.Errorf("remote ip not found")
 	}
@@ -53,7 +58,7 @@ func getIp(request *http.Request) (string, error) {
 }
 
 func getAddress(request *http.Request, names ...string) string {
-	address := getHeaders(request, "X-Forwarded-For", "X-Remote-Addr")
+	address := getHeaders(request, names...)
 	if len(address) > 0 {
 		return address
 	}

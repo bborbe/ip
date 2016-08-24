@@ -4,6 +4,14 @@
 
 `go get github.com/bborbe/ip/bin/ip_server`
 
+## Run
+
+```
+ip_server \
+-loglevel=DEBUG \
+-port=8080
+```
+
 ## Continuous integration
 
 [Jenkins](https://www.benjamin-borbe.de/jenkins/job/Go-Ip/)
