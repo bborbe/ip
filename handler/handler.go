@@ -26,7 +26,7 @@ func (s *statusHandler) ServeHTTP(responseWriter http.ResponseWriter, request *h
 	if ip, err = getIp(request); err != nil {
 		logger.Warnf("get ip failed: %v", err)
 		responseWriter.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(responseWriter, "Internal Server Error: %v", err)
+		fmt.Fprintf(responseWriter, "Internal Server Error: %v", err)
 		return
 	}
 	responseWriter.Header().Add("Content-Type", "text/plain")
