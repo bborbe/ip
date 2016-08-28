@@ -6,10 +6,8 @@ import (
 
 	"strings"
 
-	"github.com/bborbe/log"
+	"github.com/golang/glog"
 )
-
-var logger = log.DefaultLogger
 
 type statusHandler struct {
 }
@@ -22,27 +20,27 @@ func New() http.Handler {
 func (s *statusHandler) ServeHTTP(responseWriter http.ResponseWriter, request *http.Request) {
 	var ip string
 	var err error
-	logger.Tracef("get ip")
+	glog.V(4).Infof("get ip")
 	if ip, err = getIp(request); err != nil {
-		logger.Warnf("get ip failed: %v", err)
+		glog.Warningf("get ip failed: %v", err)
 		responseWriter.WriteHeader(http.StatusInternalServerError)
 		fmt.Fprintf(responseWriter, "Internal Server Error: %v", err)
 		return
 	}
 	responseWriter.Header().Add("Content-Type", "text/plain")
 	responseWriter.WriteHeader(http.StatusOK)
-	logger.Debugf("return ip %s to client", ip)
+	glog.V(2).Infof("return ip %s to client", ip)
 	fmt.Fprint(responseWriter, ip)
 }
 
 func getIp(request *http.Request) (string, error) {
-	logger.Tracef("header %v", request.Header)
+	glog.V(4).Infof("header %v", request.Header)
 	address := getAddress(request, "X-Forwarded-For", "X-Remote-Addr")
 	return parseIpFromAddress(address)
 }
 
 func parseIpFromAddress(address string) (string, error) {
-	logger.Tracef("parse ip from address %s", address)
+	glog.V(4).Infof("parse ip from address %s", address)
 	if len(address) == 0 {
 		return "", fmt.Errorf("remote ip not found")
 	}
@@ -81,7 +79,7 @@ func getHeaders(request *http.Request, names ...string) string {
 func getHeader(request *http.Request, name string) string {
 	var result string
 	result = request.Header.Get(name)
-	logger.Tracef("get header %s => %s", name, result)
+	glog.V(4).Infof("get header %s => %s", name, result)
 	return result
 }
 
