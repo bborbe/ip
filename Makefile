@@ -12,7 +12,8 @@ errcheck:
 check: lint vet errcheck
 run:
 	ip_server \
-	-loglevel=DEBUG \
+	-logtostderr \
+	-v=2 \
 	-port=8080
 open:
 	open http://localhost:8080/

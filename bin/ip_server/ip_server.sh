@@ -7,7 +7,7 @@
 case "$1" in
 	start)
 		echo "Starting ip_server"
-		/opt/ip/bin/ip_server -loglevel=ERROR -port=7777 -rootdir=/rsync > /var/log/ip_server.log &
+		/opt/ip/bin/ip_server -logtostderr -v=2 -port=7777 -rootdir=/rsync > /var/log/ip_server.log &
 	;;
 	stop)
 		echo "Stopping ip_server"
