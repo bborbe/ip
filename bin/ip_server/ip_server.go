@@ -9,14 +9,14 @@ import (
 
 	flag "github.com/bborbe/flagenv"
 	"github.com/bborbe/ip/handler"
+	"github.com/bborbe/ip/model"
 	"github.com/facebookgo/grace/gracehttp"
 	"github.com/golang/glog"
-	"github.com/bborbe/ip/model"
 )
 
 const (
-	PARAMETER_PORT = "port"
-	DEFAULT_PORT int = 8080
+	PARAMETER_PORT     = "port"
+	DEFAULT_PORT   int = 8080
 )
 
 var (
@@ -51,5 +51,5 @@ func createServer() (*http.Server, error) {
 		handler = debug_handler.New(handler)
 	}
 	glog.V(2).Infof("create http server on %s", port.Address())
-	return &http.Server{Addr:port.Address(), Handler: handler}, nil
+	return &http.Server{Addr: port.Address(), Handler: handler}, nil
 }
