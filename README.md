@@ -15,7 +15,7 @@ ip_server \
 
 ## Continuous integration
 
-[Jenkins](https://www.benjamin-borbe.de/jenkins/job/Go-Ip/)
+[Jenkins](https://jenkins.benjamin-borbe.de/job/Go-Ip/)
 
 ## Copyright and license
 
