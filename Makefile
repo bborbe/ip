@@ -1,34 +1,85 @@
-all: test install run
+REGISTRY ?= docker.io
+IMAGE ?= bborbe/ip
+ifeq ($(VERSION),)
+	VERSION := $(shell git fetch --tags; git describe --tags `git rev-list --tags --max-count=1`)
+endif
+
+all: test install
+
 install:
-	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install bin/ip_server/*.go
+	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install cmd/ip-server/*.go
+
 test:
-	GO15VENDOREXPERIMENT=1 go test -cover `glide novendor`
+	go test -cover -race $(shell go list ./... | grep -v /vendor/)
+
 vet:
 	go tool vet .
 	go tool vet --shadow .
+
 lint:
 	golint -min_confidence 1 ./...
+
 errcheck:
 	errcheck -ignore '(Close|Write)' ./...
+
 check: lint vet errcheck
-run:
-	ip_server \
-	-logtostderr \
-	-v=2 \
-	-port=8080
-open:
-	open http://localhost:8080/
-format:
-	find . -name "*.go" -exec gofmt -w "{}" \;
-	goimports -w=true .
+
+goimports:
+	go get golang.org/x/tools/cmd/goimports
+
+format: goimports
+	find . -type f -name '*.go' -not -path './vendor/*' -exec gofmt -w "{}" +
+	find . -type f -name '*.go' -not -path './vendor/*' -exec goimports -w "{}" +
+
 prepare:
-	npm install
 	go get -u golang.org/x/tools/cmd/goimports
-	go get -u github.com/Masterminds/glide
 	go get -u github.com/golang/lint/golint
 	go get -u github.com/kisielk/errcheck
-	glide install
-update:
-	glide up
+	go get -u github.com/bborbe/docker_utils/bin/docker_remote_tag_exists
+
 clean:
-	rm -rf vendor
+	docker rmi $(REGISTRY)/$(IMAGE)-build:$(VERSION)
+	docker rmi $(REGISTRY)/$(IMAGE):$(VERSION)
+
+buildgo:
+	CGO_ENABLED=0 GOOS=linux go build -ldflags "-s" -a -installsuffix cgo -o ip-server ./go/src/github.com/$(IMAGE)/cmd/ip-server
+
+build:
+	docker build --build-arg VERSION=$(VERSION) --no-cache --rm=true -t $(REGISTRY)/$(IMAGE)-build:$(VERSION) -f ./Dockerfile.build .
+	docker run -t $(REGISTRY)/$(IMAGE)-build:$(VERSION) /bin/true
+	docker cp `docker ps -q -n=1 -f ancestor=$(REGISTRY)/$(IMAGE)-build:$(VERSION) -f status=exited`:/ip-server .
+	docker rm `docker ps -q -n=1 -f ancestor=$(REGISTRY)/$(IMAGE)-build:$(VERSION) -f status=exited`
+	docker build --no-cache --rm=true --tag=$(REGISTRY)/$(IMAGE):$(VERSION) -f Dockerfile.static .
+	rm ip-server
+
+upload:
+	docker push $(REGISTRY)/$(IMAGE):$(VERSION)
+
+version:
+	@echo $(VERSION)
+
+docker_remote_tag_exists:
+	@go get github.com/bborbe/docker_utils/bin/docker_remote_tag_exists
+
+trigger: docker_remote_tag_exists
+	@exists=`docker_remote_tag_exists \
+		-registry=${REGISTRY} \
+		-repository="${IMAGE}" \
+		-credentialsfromfile \
+		-tag="${VERSION}" \
+		-logtostderr \
+		-v=0`; \
+	trigger="build"; \
+	if [ "$${exists}" = "true" ]; then \
+		trigger="skip"; \
+	fi; \
+	echo $${trigger}
+
+run:
+	docker run \
+	-p 9090:9090 \
+	-e PORT=9090 \
+	$(REGISTRY)/bborbe/ip:$(VERSION) \
+	-logtostderr \
+	-v=0
+
