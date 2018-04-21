@@ -24,10 +24,8 @@ errcheck:
 
 check: lint vet errcheck
 
-goimports:
+format:
 	go get golang.org/x/tools/cmd/goimports
-
-format: goimports
 	find . -type f -name '*.go' -not -path './vendor/*' -exec gofmt -w "{}" +
 	find . -type f -name '*.go' -not -path './vendor/*' -exec goimports -w "{}" +
 
@@ -36,6 +34,7 @@ prepare:
 	go get -u github.com/golang/lint/golint
 	go get -u github.com/kisielk/errcheck
 	go get -u github.com/bborbe/docker-utils/cmd/docker-remote-tag-exists
+	go get -u github.com/golang/dep/cmd/dep
 
 clean:
 	docker rmi $(REGISTRY)/$(IMAGE)-build:$(VERSION)
