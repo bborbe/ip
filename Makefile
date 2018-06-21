@@ -12,6 +12,10 @@ install:
 test:
 	go test -cover -race $(shell go list ./... | grep -v /vendor/)
 
+ginkgo:
+	go get github.com/onsi/ginkgo/ginkgo
+	ginkgo -r -progress -v
+
 vet:
 	go tool vet .
 	go tool vet --shadow .
