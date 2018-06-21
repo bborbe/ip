@@ -30,18 +30,39 @@ func TestIpClient(t *testing.T) {
 
 var _ = Describe("ip-client", func() {
 	var err error
+	var args []string
 	Context("without parameters", func() {
+		BeforeEach(func() {
+			args = []string{}
+		})
 		It("returns with exitcode != 0", func() {
-			session, err = gexec.Start(exec.Command(pathToBinary), GinkgoWriter, GinkgoWriter)
+			session, err = gexec.Start(exec.Command(pathToBinary, args...), GinkgoWriter, GinkgoWriter)
 			Expect(err).To(BeNil())
 			session.Wait(time.Second)
 			Expect(session.ExitCode()).To(Equal(1))
 		})
-		It("returns with exitcode != 0", func() {
-			session, err = gexec.Start(exec.Command(pathToBinary), GinkgoWriter, GinkgoWriter)
+		It("say parameter url missing", func() {
+			session, err = gexec.Start(exec.Command(pathToBinary, args...), GinkgoWriter, GinkgoWriter)
 			Expect(err).To(BeNil())
 			session.Wait(time.Second)
 			Expect(session.Err).To(gbytes.Say("parameter url missing"))
+		})
+	})
+	Context("with invalid url parameter", func() {
+		BeforeEach(func() {
+			args = []string{"--url", "foobar"}
+		})
+		It("returns with exitcode != 0", func() {
+			session, err = gexec.Start(exec.Command(pathToBinary, args...), GinkgoWriter, GinkgoWriter)
+			Expect(err).To(BeNil())
+			session.Wait(time.Second)
+			Expect(session.ExitCode()).To(Equal(1))
+		})
+		It("say parameter url invalid", func() {
+			session, err = gexec.Start(exec.Command(pathToBinary, args...), GinkgoWriter, GinkgoWriter)
+			Expect(err).To(BeNil())
+			session.Wait(time.Second)
+			Expect(session.Err).To(gbytes.Say("parameter url invalid"))
 		})
 	})
 })

@@ -8,6 +8,7 @@ all: test install
 
 install:
 	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install cmd/ip-server/*.go
+	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install cmd/ip-client/*.go
 
 test:
 	go test -cover -race $(shell go list ./... | grep -v /vendor/)
