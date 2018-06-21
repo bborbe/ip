@@ -5,6 +5,8 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/gexec"
 	"testing"
+	"time"
+	"os/exec"
 )
 
 var pathToServerBinary string
@@ -24,3 +26,13 @@ func TestIpClient(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "IpClient Suite")
 }
+
+var _ = Describe("ip-client", func() {
+	var err error
+	It("returns with exitcode != 0 if no parameters have been given", func() {
+		serverSession, err = gexec.Start(exec.Command(pathToServerBinary), GinkgoWriter, GinkgoWriter)
+		Expect(err).To(BeNil())
+		serverSession.Wait(time.Second)
+		Expect(serverSession.ExitCode()).To(Equal(1))
+	})
+})
