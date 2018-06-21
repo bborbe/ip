@@ -28,7 +28,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "get ip failed: %s\n", err.Error())
 		os.Exit(1)
 	}
-	fmt.Fprintf(os.Stdout, "%s %s", time.Now().Format("2006-01-02T15:04:05"), ip)
+	fmt.Fprintf(os.Stdout, "%s %s\n", time.Now().Format("2006-01-02T15:04:05"), ip)
 	os.Exit(0)
 }
 
