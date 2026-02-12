@@ -28,7 +28,7 @@ func main() {
 type application struct {
 	SentryDSN   string `required:"false" arg:"sentry-dsn"   env:"SENTRY_DSN"   usage:"Sentry DSN (optional)" display:"length"`
 	SentryProxy string `required:"false" arg:"sentry-proxy" env:"SENTRY_PROXY" usage:"Sentry Proxy"`
-	Listen      string `required:"true"  arg:"listen"       env:"LISTEN"       usage:"Address to listen on"  default:":8080"`
+	Listen      string `required:"true"  arg:"listen"       env:"LISTEN"       usage:"Address to listen on"                   default:":8080"`
 }
 
 func (a *application) Run(ctx context.Context, sentryClient libsentry.Client) error {
