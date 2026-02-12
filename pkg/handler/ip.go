@@ -34,13 +34,7 @@ func NewIPHandler() *IPHandler {
 }
 
 func (h *IPHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	ip, err := getClientIP(r)
-	if err != nil {
-		glog.Warningf("get ip failed: %v", err)
-		requestsTotal.WithLabelValues("error").Inc()
-		http.Error(w, fmt.Sprintf("Internal Server Error: %v", err), http.StatusInternalServerError)
-		return
-	}
+	ip := getClientIP(r)
 
 	requestsTotal.WithLabelValues("success").Inc()
 	glog.V(2).Infof("return ip %s to client", ip)
@@ -53,7 +47,7 @@ func (h *IPHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // getClientIP extracts the client IP from the request.
 // It checks X-Forwarded-For and X-Real-IP headers first (for proxied requests),
 // then falls back to RemoteAddr.
-func getClientIP(r *http.Request) (string, error) {
+func getClientIP(r *http.Request) string {
 	// Check X-Forwarded-For header (can contain multiple IPs)
 	if xff := r.Header.Get("X-Forwarded-For"); xff != "" {
 		// Take the first IP (original client)
@@ -61,25 +55,25 @@ func getClientIP(r *http.Request) (string, error) {
 			xff = strings.TrimSpace(xff[:idx])
 		}
 		if xff != "" {
-			return xff, nil
+			return xff
 		}
 	}
 
 	// Check X-Real-IP header
 	if xri := r.Header.Get("X-Real-IP"); xri != "" {
-		return xri, nil
+		return xri
 	}
 
 	// Check X-Remote-Addr header (legacy support)
 	if xra := r.Header.Get("X-Remote-Addr"); xra != "" {
-		return xra, nil
+		return xra
 	}
 
 	// Fall back to RemoteAddr
 	ip, _, err := net.SplitHostPort(r.RemoteAddr)
 	if err != nil {
 		// RemoteAddr might not have a port
-		return r.RemoteAddr, nil
+		return r.RemoteAddr
 	}
-	return ip, nil
+	return ip
 }
