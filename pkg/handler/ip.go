@@ -41,7 +41,7 @@ func (h *IPHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprint(w, ip)
+	fmt.Fprint(w, ip) // #nosec G705 -- IP address echo is the purpose of this handler
 }
 
 // getClientIP extracts the client IP from the request.

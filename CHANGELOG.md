@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.1
+
+- chore: verify project health — all tests pass, linting clean, precommit succeeds
+
 ## v2.0.0
 
 ### Breaking Changes
