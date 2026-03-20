@@ -12,3 +12,6 @@ coverage.out
 
 # OS
 .DS_Store
+/.dark-factory.lock
+/prompts/log
+/specs/log
