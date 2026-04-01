@@ -15,3 +15,7 @@ coverage.out
 /.dark-factory.lock
 /prompts/log
 /specs/log
+/.update-logs/
+/.claude/
+/CLAUDE.md
+/.mcp-*

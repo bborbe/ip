@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.2
+
+- Bump indirect dependencies (docker, containerd, moby, opentelemetry, golang.org/x/*)
+- Add replace directives for charmbracelet/x/cellbuf, denis-tingaikin/go-header, nunnatsa/ginkgolinter/types, opencontainers/runtime-spec
+- Update go-git, ssh_config, klauspost/compress, and various other indirect deps
+
 ## v2.0.1
 
 - chore: verify project health — all tests pass, linting clean, precommit succeeds
