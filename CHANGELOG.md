@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.0.3
+
+- Bump Go base image to 1.26.2 and Alpine to 3.23
+- Update bborbe/* dependencies (errors, http, run, sentry, service, argument, collection, etc.)
+- Update golangci-lint to v2.11.4 and simplify linter config
+- Update osv-scanner, gosec, and other tooling dependencies
+- Add new CVE ignores for bbolt and aws-sdk-go-v2 vulnerabilities
+
 ## v2.0.2
 
 - Bump indirect dependencies (docker, containerd, moby, opentelemetry, golang.org/x/*)

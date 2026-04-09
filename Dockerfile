@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Build stage
-FROM golang:1.26.0-alpine AS builder
+FROM golang:1.26.2-alpine AS builder
 
 WORKDIR /app
 
@@ -17,7 +17,7 @@ RUN --mount=type=cache,target=/go/pkg/mod \
     CGO_ENABLED=0 GOOS=linux go build -ldflags "-s -w" -o ip .
 
 # Final stage
-FROM alpine:3.21
+FROM alpine:3.23
 
 RUN apk --no-cache add ca-certificates tzdata
 
