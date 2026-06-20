@@ -1,6 +1,6 @@
 module github.com/bborbe/ip
 
-go 1.26.3
+go 1.26.4
 
 replace (
 	github.com/anthropics/anthropic-sdk-go => github.com/anthropics/anthropic-sdk-go v1.26.0
