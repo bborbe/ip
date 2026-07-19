@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v2.0.4
 
 - fix(deps): bump x/text v0.39.0 (CVE-2026-56852) + Go 1.26.5 (GO-2026-5856); suppress unreachable/unfixable transitive CVEs (containerd, x/crypto/openpgp)
 
