@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- fix(deps): bump x/text v0.39.0 (CVE-2026-56852) + Go 1.26.5 (GO-2026-5856); suppress unreachable/unfixable transitive CVEs (containerd, x/crypto/openpgp)
+
 ## v2.0.3
 
 - Bump Go base image to 1.26.2 and Alpine to 3.23
