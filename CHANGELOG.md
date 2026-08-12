@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v2.0.5
 
 - fix(deps): bump go-git/go-git/v5 to v5.19.2 (GHSA-hc8v-wwc9-vgxm, GHSA-qgq7-7hm3-q39j)
 - fix(deps): bump google.golang.org/grpc to v1.82.1 (GHSA-hrxh-6v49-42gf)
