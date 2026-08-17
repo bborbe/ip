@@ -8,7 +8,7 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
-## Unreleased
+## v2.0.6
 
 - chore(security): bump Go toolchain 1.26.5 -> 1.26.6 in `go.mod` and Dockerfile (stdlib GO-2026-5026 / GO-2026-5972 / GO-2026-6090 / GO-2026-6218)
 - chore(security): bump `golang.org/x/mod` v0.37.0 -> v0.40.0 (GO-2026-6179 / GO-2026-6180, CVE-2026-56864 / CVE-2026-56865)
