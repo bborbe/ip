@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Migrate to tools.env + Makefile @version pattern; remove tools.go and obsolete replace block. go.mod reduced from 478 to 48 lines (errcheck folded into golangci-lint per go-tools-versioning guide).
+
+
 All notable changes to this project will be documented in this file.
 
 Please choose versions by [Semantic Versioning](http://semver.org/).

@@ -49,7 +49,7 @@ test:
 	go test -mod=mod -p=$${GO_TEST_PARALLEL:-1} -cover $(TESTFLAGS_RACE) $(shell go list -mod=mod ./... | grep -v /vendor/)
 
 .PHONY: check
-check: lint vet errcheck vulncheck osv-scanner gosec trivy
+check: lint vet vulncheck osv-scanner gosec trivy
 
 .PHONY: lint
 lint:
@@ -58,10 +58,6 @@ lint:
 .PHONY: vet
 vet:
 	go vet -mod=mod $(shell go list -mod=mod ./... | grep -v /vendor/)
-
-.PHONY: errcheck
-errcheck:
-	go run github.com/kisielk/errcheck@$(ERRCHECK_VERSION) -ignore '(Close|Write|Fprint)' $(shell go list -mod=mod ./... | grep -v /vendor/ | grep -v k8s/client)
 
 # GO-2026-5037/5038/5039 are Go 1.26.3 stdlib vulns (crypto/x509, mime, net/textproto),
 # fixed in 1.26.4 — remove from this list once all CI runners and base images are on 1.26.4+.
