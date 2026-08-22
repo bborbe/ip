@@ -1,5 +1,9 @@
 # Changelog
 
+
+## Unreleased
+
+- exclude no-fix docker/containerd advisories in checker config (GO-2026-4883/4887/5064/5338/5622/5932 v1 no-fix)
 ## v2.0.7
 
 - Migrate to tools.env + Makefile @version pattern; remove tools.go and obsolete replace block. go.mod reduced from 478 to 48 lines (errcheck folded into golangci-lint per go-tools-versioning guide).
