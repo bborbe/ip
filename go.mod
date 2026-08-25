@@ -19,7 +19,7 @@ require (
 	github.com/bborbe/collection v1.20.24 // indirect
 	github.com/bborbe/kv v1.21.11 // indirect
 	github.com/bborbe/log v1.6.24 // indirect
-	github.com/bborbe/math v1.4.5 // indirect
+	github.com/bborbe/math v1.4.6 // indirect
 	github.com/bborbe/parse v1.10.21 // indirect
 	github.com/bborbe/time v1.27.10 // indirect
 	github.com/bborbe/validation v1.4.22 // indirect
