@@ -3,7 +3,7 @@ module github.com/bborbe/ip
 go 1.27.0
 
 require (
-	github.com/bborbe/errors v1.5.20
+	github.com/bborbe/errors v1.5.21
 	github.com/bborbe/http v1.26.24
 	github.com/bborbe/run v1.9.37
 	github.com/bborbe/sentry v1.9.27
@@ -18,18 +18,18 @@ require (
 	github.com/bborbe/argument/v2 v2.12.37 // indirect
 	github.com/bborbe/collection v1.20.24 // indirect
 	github.com/bborbe/kv v1.21.11 // indirect
-	github.com/bborbe/log v1.6.24 // indirect
-	github.com/bborbe/math v1.4.6 // indirect
+	github.com/bborbe/log v1.6.25 // indirect
+	github.com/bborbe/math v1.4.7 // indirect
 	github.com/bborbe/parse v1.10.21 // indirect
 	github.com/bborbe/time v1.27.10 // indirect
-	github.com/bborbe/validation v1.4.22 // indirect
+	github.com/bborbe/validation v1.4.23 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/getsentry/sentry-go v0.48.0 // indirect
 	github.com/go-logr/logr v1.4.4 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/pprof v0.0.0-20260825002013-8a176773c324 // indirect
+	github.com/google/pprof v0.0.0-20260825171938-4d453200e7d9 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/onsi/ginkgo/v2 v2.32.1 // indirect
 	github.com/onsi/gomega v1.42.1 // indirect
