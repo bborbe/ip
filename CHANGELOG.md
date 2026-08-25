@@ -1,14 +1,5 @@
 # Changelog
 
-
-## v2.0.8
-
-- exclude no-fix docker/containerd advisories in checker config (GO-2026-4883/4887/5064/5338/5622/5932 v1 no-fix)
-## v2.0.7
-
-- Migrate to tools.env + Makefile @version pattern; remove tools.go and obsolete replace block. go.mod reduced from 478 to 48 lines (errcheck folded into golangci-lint per go-tools-versioning guide).
-
-
 All notable changes to this project will be documented in this file.
 
 Please choose versions by [Semantic Versioning](http://semver.org/).
@@ -16,6 +7,17 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MAJOR version when you make incompatible API changes,
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
+
+## Unreleased
+
+- chore: update Go to 1.27.0 and github.com/bborbe/errors to v1.5.20, github.com/bborbe/http to v1.26.24, github.com/bborbe/run to v1.9.37, github.com/bborbe/sentry to v1.9.27, github.com/bborbe/service to v1.10.9
+
+## v2.0.8
+
+- exclude no-fix docker/containerd advisories in checker config (GO-2026-4883/4887/5064/5338/5622/5932 v1 no-fix)
+## v2.0.7
+
+- Migrate to tools.env + Makefile @version pattern; remove tools.go and obsolete replace block. go.mod reduced from 478 to 48 lines (errcheck folded into golangci-lint per go-tools-versioning guide).
 
 ## v2.0.6
 
