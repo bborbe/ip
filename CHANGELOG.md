@@ -1,5 +1,12 @@
 # Changelog
 
+All notable changes to this project will be documented in this file.
+
+Please choose versions by [Semantic Versioning](http://semver.org/).
+
+* MAJOR version when you make incompatible API changes,
+* MINOR version when you add functionality in a backwards-compatible manner, and
+* PATCH version when you make backwards-compatible bug fixes.
 
 ## Unreleased
 
@@ -11,15 +18,6 @@
 ## v2.0.7
 
 - Migrate to tools.env + Makefile @version pattern; remove tools.go and obsolete replace block. go.mod reduced from 478 to 48 lines (errcheck folded into golangci-lint per go-tools-versioning guide).
-
-
-All notable changes to this project will be documented in this file.
-
-Please choose versions by [Semantic Versioning](http://semver.org/).
-
-* MAJOR version when you make incompatible API changes,
-* MINOR version when you add functionality in a backwards-compatible manner, and
-* PATCH version when you make backwards-compatible bug fixes.
 
 ## v2.0.6
 
