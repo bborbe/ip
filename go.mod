@@ -1,13 +1,13 @@
 module github.com/bborbe/ip
 
-go 1.27.0
+go 1.27.1
 
 require (
 	github.com/bborbe/errors v1.6.0
-	github.com/bborbe/http v1.26.25
+	github.com/bborbe/http v1.26.26
 	github.com/bborbe/run v1.10.2
 	github.com/bborbe/sentry v1.10.1
-	github.com/bborbe/service v1.10.11
+	github.com/bborbe/service v1.10.13
 	github.com/golang/glog v1.2.5
 	github.com/gorilla/mux v1.8.1
 	github.com/prometheus/client_golang v1.24.1
@@ -20,16 +20,16 @@ require (
 	github.com/bborbe/kv v1.21.13 // indirect
 	github.com/bborbe/log v1.6.25 // indirect
 	github.com/bborbe/math v1.4.8 // indirect
-	github.com/bborbe/parse v1.11.1 // indirect
-	github.com/bborbe/time v1.27.12 // indirect
-	github.com/bborbe/validation v1.4.23 // indirect
+	github.com/bborbe/parse v1.11.3 // indirect
+	github.com/bborbe/time v1.27.14 // indirect
+	github.com/bborbe/validation v1.5.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/getsentry/sentry-go v0.49.0 // indirect
 	github.com/go-logr/logr v1.4.4 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/pprof v0.0.0-20260902005441-ca85771921e4 // indirect
+	github.com/google/pprof v0.0.0-20260903180319-d6c3cb2f37ec // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/onsi/ginkgo/v2 v2.32.1 // indirect
 	github.com/onsi/gomega v1.43.0 // indirect
