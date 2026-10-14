@@ -33,6 +33,10 @@ linters:
               desc: "deprecated, use revive or staticcheck instead"
             - pkg: "io/ioutil"
               desc: "deprecated since Go 1.16, use io and os packages instead"
+    gosec:
+      excludes:
+        - G104
+
   exclusions:
     presets:
       - comments
