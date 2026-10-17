@@ -19,7 +19,7 @@ require (
 	github.com/bborbe/collection v1.21.2 // indirect
 	github.com/bborbe/kv v1.21.18 // indirect
 	github.com/bborbe/log v1.7.4 // indirect
-	github.com/bborbe/math v1.4.14 // indirect
+	github.com/bborbe/math v1.4.15 // indirect
 	github.com/bborbe/parse v1.12.3 // indirect
 	github.com/bborbe/time v1.27.16 // indirect
 	github.com/bborbe/validation v1.5.4 // indirect
@@ -29,7 +29,7 @@ require (
 	github.com/go-logr/logr v1.4.4 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/pprof v0.0.0-20261014150452-c3b4e57cab2c // indirect
+	github.com/google/pprof v0.0.0-20261016150608-1facf8f91b50 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/onsi/ginkgo/v2 v2.33.1 // indirect
 	github.com/onsi/gomega v1.44.0 // indirect
