@@ -8,7 +8,7 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
-## Unreleased
+## v2.2.1
 
 - fix: fetch the trivy vulnerability DB from `ghcr.io/aquasecurity/trivy-db` instead of trivy's default `mirror.gcr.io`, which the agent sandbox's egress proxy denies — trivy does not fall back to its second default repository on a proxy deny, so `make precommit` failed with no findings and the update-go agent could never pass the gate
 
