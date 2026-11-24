@@ -8,7 +8,7 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
-## Unreleased
+## v2.3.2
 
 - chore: remove the withdrawn advisory GO-2026-4923 (go.etcd.io/bbolt) from `VULNCHECK_IGNORE` and `.trivyignore`, including its CVE alias CVE-2026-33817
 - ci: install a pinned, checksum-verified Trivy release instead of the retired `apt-key` repo helper, so `test` stops failing on Ubuntu 26.04 runners
