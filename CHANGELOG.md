@@ -8,6 +8,10 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## Unreleased
+
+- chore: remove the withdrawn advisory GO-2026-4923 (go.etcd.io/bbolt) from `VULNCHECK_IGNORE` and `.trivyignore`
+
 ## v2.3.1
 
 - chore: update Go to 1.27.4 and github.com/bborbe/http to v1.26.34, github.com/bborbe/run to v1.11.11, github.com/bborbe/service to v1.11.3
