@@ -11,6 +11,7 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 ## Unreleased
 
 - chore: remove the withdrawn advisory GO-2026-4923 (go.etcd.io/bbolt) from `VULNCHECK_IGNORE` and `.trivyignore`
+- ci: install a pinned, checksum-verified Trivy release instead of the retired `apt-key` repo helper, so `test` stops failing on Ubuntu 26.04 runners
 
 ## v2.3.1
 
