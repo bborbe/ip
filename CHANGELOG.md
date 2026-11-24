@@ -8,6 +8,11 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## Unreleased
+
+- chore: remove the withdrawn advisory GO-2026-4923 (go.etcd.io/bbolt) from `VULNCHECK_IGNORE` and `.trivyignore`, including its CVE alias CVE-2026-33817
+- ci: install a pinned, checksum-verified Trivy release instead of the retired `apt-key` repo helper, so `test` stops failing on Ubuntu 26.04 runners
+
 ## v2.3.1
 
 - chore: update Go to 1.27.4 and github.com/bborbe/http to v1.26.34, github.com/bborbe/run to v1.11.11, github.com/bborbe/service to v1.11.3
